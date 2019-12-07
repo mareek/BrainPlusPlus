@@ -16,9 +16,23 @@ void Tape::MoveNext()
 	m_position++;
 	if (m_position >= m_tapeSize)
 	{
+		auto newSize = m_tapeSize * 2;
+		auto newTape = new char[newSize];
+
+		//copy old tape to new tape
+		for (int i = 0; i < m_tapeSize; i++)
+		{
+			newTape[i] = m_tape[i];
+		}
+
+		//init newTape to 0;
+		for (int i = m_tapeSize; i < newSize; i++)
+		{
+			newTape[i] = 0;
+		}
+		
 		delete m_tape;
-		m_tapeSize *= 2;
-		m_tape = new char[m_tapeSize];
+		m_tape = newTape;
 	}
 }
 
