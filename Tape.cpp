@@ -41,7 +41,7 @@ void Tape::MovePrevious()
 	m_position--;
 }
 
-void Tape::IncrementCUrrent()
+void Tape::IncrementCurrent()
 {
 	m_tape[m_position] += 1;
 }

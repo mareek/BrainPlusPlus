@@ -7,7 +7,7 @@ class Interpreter
 {
 private:
 	string m_program;
-	int m_position;
+	int m_programSize;
 	Tape* m_tape;
 	int* m_jumpTable;
 

@@ -1,11 +1,14 @@
 #include <stack>
+#include <iostream>
+#include <conio.h>
 #include "Interpreter.h"
 
 Interpreter::Interpreter(string program)
 {
 	m_program = program;
+	m_programSize = program.size();
 	m_tape = new Tape();
-	m_jumpTable = new int[program.size()];
+	m_jumpTable = new int[m_programSize];
 }
 
 Interpreter::~Interpreter()
@@ -17,7 +20,7 @@ Interpreter::~Interpreter()
 void Interpreter::InitJumpTable()
 {
 	auto openingBracketPositions = new std::stack<int>();
-	for (int i = 0; i < m_program.length; i++)
+	for (int i = 0; i < m_programSize; i++)
 	{
 		if (m_program.at(i) == '[')
 		{
@@ -35,4 +38,46 @@ void Interpreter::InitJumpTable()
 
 void Interpreter::Execute()
 {
+	this->InitJumpTable();
+	int position = 0;
+	while (position < m_programSize)
+	{
+		auto instruction = m_program.at(position);
+		switch (instruction)
+		{
+		case '>': //  >  Increment the pointer.
+			m_tape->MoveNext();
+			position++;
+			break;
+		case '<': //  <  Decrement the pointer
+			m_tape->MovePrevious();
+			position++;
+			break;
+		case '+': //  +  Increment the byte at the pointer.
+			m_tape->IncrementCurrent();
+			position++;
+			break;
+		case '-': //  -  Decrement the byte at the pointer.
+			m_tape->DecrementCurrent();
+			position++;
+			break;
+		case'.': //  .  Output the byte at the pointer.
+			std::cout << m_tape->GetCurrentValue();
+			position++;
+			break;
+		case',': //  ,  Input a byte and store it in the byte at the pointer.
+			m_tape->SetCurrentValue(_getch());
+			position++;
+			break;
+		case '[': //  [  Jump forward past the matching ] if the byte at the pointer is zero.
+			position = (m_tape->GetCurrentValue() == 0) ? m_jumpTable[position] + 1 : position + 1;
+			break;
+		case ']': //  ]  Jump backward to the matching [ unless the byte at the pointer is zero.
+			position = m_jumpTable[position];
+			break;
+		default:
+			position++;
+			break;
+		}
+	}
 }

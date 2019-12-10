@@ -11,7 +11,7 @@ public:
 
 	void MoveNext();
 	void MovePrevious();
-	void IncrementCUrrent();
+	void IncrementCurrent();
 	void DecrementCurrent();
 	char GetCurrentValue();
 	void SetCurrentValue(char newValue);
