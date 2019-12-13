@@ -10,7 +10,7 @@ int main(int argc, char* argv[])
 		ifstream iFileStream(programPath);
 		if (!iFileStream.good())
 		{
-			throw std::runtime_error("File not found");
+			throw runtime_error("File not found");
 		}
 		program.assign((istreambuf_iterator<char>(iFileStream)), istreambuf_iterator<char>());
 	}

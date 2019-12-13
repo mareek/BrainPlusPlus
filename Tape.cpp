@@ -33,6 +33,7 @@ void Tape::MoveNext()
 		
 		delete m_tape;
 		m_tape = newTape;
+		m_tapeSize = newSize;
 	}
 }
 
