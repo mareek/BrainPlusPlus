@@ -62,7 +62,7 @@ void Interpreter::Execute()
 			position++;
 			break;
 		case'.': //  .  Output the byte at the pointer.
-			std::cout << m_tape->GetCurrentValue();
+			OutputValue(m_tape->GetCurrentValue());
 			position++;
 			break;
 		case',': //  ,  Input a byte and store it in the byte at the pointer.
@@ -79,5 +79,20 @@ void Interpreter::Execute()
 			position++;
 			break;
 		}
+	}
+}
+
+void Interpreter::OutputValue(char value)
+{
+	switch (value)
+	{
+	case 13:
+		break;
+	case 10:
+		cout << endl;
+		break;
+	default:
+		cout << value;
+		break;
 	}
 }

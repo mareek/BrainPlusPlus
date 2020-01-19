@@ -12,6 +12,7 @@ private:
 	int* m_jumpTable;
 
 	void InitJumpTable();
+	void OutputValue(char value);
 public:
 	Interpreter(string program);
 	~Interpreter();

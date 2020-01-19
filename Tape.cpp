@@ -3,6 +3,10 @@ Tape::Tape()
 {
 	m_tapeSize = 64;
 	m_tape = new char[m_tapeSize];
+	for (int i = 0; i < m_tapeSize; i++)
+	{
+		m_tape[i] = 0;
+	}
 	m_position = 0;
 }
 
